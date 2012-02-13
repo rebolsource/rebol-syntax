@@ -10,6 +10,9 @@ REBOL [
 		quoted-string
 		braced-string
 		value-syntax ; update when adding a new syntax type
+		implicit-block
+		block-syntax
+		paren-syntax
 	}
 ]
 
@@ -78,5 +81,18 @@ value-syntax: [
 	| decimal-syntax
 	| char-syntax
 	| quoted-string
-	| braced-string	
+	| braced-string
+	| block-syntax
+	| paren-syntax
 ]
+
+implicit-block: [
+	any [
+		whitespace
+		| comment-syntax
+		| value-syntax
+	]
+]
+
+block-syntax: [#"[" implicit-block #"]"]
+paren-syntax: [#"(" implicit-block #")"]
