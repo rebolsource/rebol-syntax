@@ -9,6 +9,7 @@ REBOL [
 		char-syntax
 		quoted-string
 		braced-string
+		value-syntax ; update when adding a new syntax type
 	}
 ]
 
