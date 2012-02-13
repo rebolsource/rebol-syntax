@@ -3,6 +3,7 @@ REBOL [
 	Purpose: {
 		REBOL syntax description:
 		
+		comment-syntax
 		integer-syntax
 		decimal-syntax
 		char-syntax
@@ -11,14 +12,17 @@ REBOL [
 	}
 ]
 
-whitespace: charset [#"^A" - #" " #"^(7F)" #"^(A0)"]
+non-lf: complement make bitset! [#"^/"]
+comment-syntax: [#";" any non-lf #"^/"]
+
+whitespace: make bitset! [#"^A" - #" " #"^(7F)" #"^(A0)"]
 
 sign: [#"+" | #"-"]
 digit: make bitset! [#"0" - #"9"]
 thousand-separator: [#"'"]
 termination: [
 	end
-	| and [whitespace | #"(" | #")" | #"[" | #"]" | #"^"" | #"{" | #"/"]
+	| and [whitespace | #"(" | #")" | #"[" | #"]" | #"^"" | #"{" | #"/" | #";"]
 ]
 integer-syntax: [opt sign digit any [digit | thousand-separator] termination]
 
@@ -34,8 +38,8 @@ decimal-syntax: [
 
 hex-digit: make bitset! [#"0" - #"9" #"a" - #"f" #"A" - #"F"]
 quoted-char: complement make bitset! [#"^/" #"^"" #"^^"]
-non-open: complement charset [#"("]
-escaped-char: [
+non-open: complement make bitset! [#"("]
+caret-notation: [
 	#"^^" [
 		non-open
 		| #"(" [
@@ -51,19 +55,27 @@ escaped-char: [
 ]
 char-syntax: [
 	"#^""
-	[quoted-char | escaped-char]
+	[quoted-char | caret-notation]
 	#"^""
 ]
 
 quoted-string: [
 	#"^""
-	any [quoted-char | escaped-char]
+	any [quoted-char | caret-notation]
 	#"^""
 ]
 
 braced-char: complement make bitset! [#"{" #"}" #"^^"]
 braced-string: [
 	#"{"
-	any [braced-char | escaped-char]
+	any [braced-char | caret-notation]
 	#"}"
+]
+
+value-syntax: [
+	integer-syntax
+	| decimal-syntax
+	| char-syntax
+	| quoted-string
+	| braced-string	
 ]
