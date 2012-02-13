@@ -3,18 +3,40 @@ REBOL [
 	Purpose: {
 		REBOL syntax description:
 		
+		value-syntax ; update when adding a new syntax type
+		implicit-block
+		block-syntax
+		paren-syntax
 		comment-syntax
 		integer-syntax
 		decimal-syntax
 		char-syntax
 		quoted-string
 		braced-string
-		value-syntax ; update when adding a new syntax type
-		implicit-block
-		block-syntax
-		paren-syntax
 	}
 ]
+
+value-syntax: [
+	integer-syntax
+	| decimal-syntax
+	| char-syntax
+	| quoted-string
+	| braced-string
+	| block-syntax
+	| paren-syntax
+	| tuple-syntax
+]
+
+implicit-block: [
+	any [
+		whitespace
+		| comment-syntax
+		| value-syntax
+	]
+]
+
+block-syntax: [#"[" implicit-block #"]"]
+paren-syntax: [#"(" implicit-block #")"]
 
 non-lf: complement make bitset! [#"^/"]
 comment-syntax: [#";" any non-lf #"^/"]
@@ -72,27 +94,6 @@ quoted-string: [
 braced-char: complement make bitset! [#"{" #"}" #"^^"]
 braced-string: [
 	#"{"
-	any [braced-char | caret-notation]
+	any [braced-char | caret-notation | braced-string]
 	#"}"
 ]
-
-value-syntax: [
-	integer-syntax
-	| decimal-syntax
-	| char-syntax
-	| quoted-string
-	| braced-string
-	| block-syntax
-	| paren-syntax
-]
-
-implicit-block: [
-	any [
-		whitespace
-		| comment-syntax
-		| value-syntax
-	]
-]
-
-block-syntax: [#"[" implicit-block #"]"]
-paren-syntax: [#"(" implicit-block #")"]
