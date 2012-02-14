@@ -100,16 +100,18 @@ braced-string: [
 	#"}"
 ]
 
-binary-2: ["2#{" any [8 [#"0" | #"1"]] #"}"]
-binary-16: ["#{" any [2 hex-digit] #"}"]
+binary-2: ["2#{" any [8 [any whitespace [#"0" | #"1"]]] any whitespace #"}"]
+binary-16: ["#{" any [2 [any whitespace hex-digit]] any whitespace #"}"]
 digit-64: make bitset! [#"A" - #"Z" #"a" - #"y" #"0" - #"9" #"+" #"/"]
+wsd-64: [any whitespace digit-64]
+ws=: [any whitespace #"="]
 binary-64: [
 	"64#{"
 	[
-		2 digit-64 any [4 digit-64] "=="
-		| 3 digit-64 any [4 digit-64] "="
-		| any [4 digit-64]
+		2 wsd-64 any [4 wsd-64] 2 ws=
+		| 3 wsd-64 any [4 wsd-64] ws=
+		| any [4 wsd-64]
 	]
-	#"}"
+	any whitespace #"}"
 ]
 binary-syntax: [binary-2 | binary-16 | binary-64]
