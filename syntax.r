@@ -13,6 +13,7 @@ REBOL [
 		char-syntax
 		quoted-string
 		braced-string
+		binary-syntax
 	}
 ]
 
@@ -25,6 +26,7 @@ value-syntax: [
 	| block-syntax
 	| paren-syntax
 	| tuple-syntax
+	| binary-syntax
 ]
 
 implicit-block: [
@@ -97,3 +99,17 @@ braced-string: [
 	any [braced-char | caret-notation | braced-string]
 	#"}"
 ]
+
+binary-2: ["2#{" any [8 [#"0" | #"1"]] #"}"]
+binary-16: ["#{" any [2 hex-digit] #"}"]
+digit-64: make bitset! [#"A" - #"Z" #"a" - #"y" #"0" - #"9" #"+" #"/"]
+binary-64: [
+	"64#{"
+	[
+		| 2 digit-64 any [4 digit-64] "=="
+		| 3 digit-64 any [4 digit-64] "="
+		| any [4 digit-64]
+	]
+	#"}"
+]
+binary-syntax: [binary-2 | binary-16 | binary-64]
