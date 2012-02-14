@@ -17,6 +17,15 @@ REBOL [
 	}
 ]
 
+alternative-syntax: func [
+	{defines an alternative syntax}
+	condition [logic!] {condition to use the alternative syntax}
+	'syntax-element [set-word!]
+	spec
+][
+	if condition [set syntax-element spec]
+]
+
 value-syntax: [
 	integer-syntax
 	| decimal-syntax
@@ -72,6 +81,20 @@ caret-notation: [
 		non-open
 		| #"(" [
 			0 4 hex-digit
+			| "line"
+			| "tab"
+			| "page"
+			| "back"
+			| "null"
+			| "escape"
+		] #")"
+	]
+]
+alternative-syntax syntax-id = 'R2 caret-notation: [
+	#"^^" [
+		non-open
+		| #"(" [
+			0 2 hex-digit
 			| "line"
 			| "tab"
 			| "page"
