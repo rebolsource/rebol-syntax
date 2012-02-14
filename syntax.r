@@ -18,12 +18,13 @@ REBOL [
 ]
 
 alternative-syntax: func [
-	{defines an alternative syntax}
-	condition [logic!] {condition to use the alternative syntax}
+	{defines (or documents) an alternative syntax}
+	'syntax-ids [word! block!] {the id/ids of syntaxes using the alternative}
 	'syntax-element [set-word!]
 	spec
 ][
-	if condition [set syntax-element spec]
+	; don't do anything at present
+	; this way it serves for documentation
 ]
 
 value-syntax: [
@@ -90,7 +91,7 @@ caret-notation: [
 		] #")"
 	]
 ]
-alternative-syntax syntax-id = 'R2 caret-notation: [
+alternative-syntax R2 caret-notation: [
 	#"^^" [
 		non-open
 		| #"(" [
