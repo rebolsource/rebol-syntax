@@ -14,6 +14,7 @@ REBOL [
 		quoted-string
 		braced-string
 		binary-syntax
+		tuple-syntax
 	}
 ]
 
@@ -35,8 +36,8 @@ value-syntax: [
 	| braced-string
 	| block-syntax
 	| paren-syntax
-	| tuple-syntax
 	| binary-syntax
+	| tuple-syntax
 ]
 
 implicit-block: [
@@ -139,3 +140,5 @@ binary-64: [
 	any whitespace #"}"
 ]
 binary-syntax: [binary-2 | binary-16 | binary-64]
+
+tuple-syntax: [digit any digit 2 9 [#"." any digit]]
