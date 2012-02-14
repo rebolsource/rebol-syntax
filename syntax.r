@@ -106,7 +106,7 @@ digit-64: make bitset! [#"A" - #"Z" #"a" - #"y" #"0" - #"9" #"+" #"/"]
 binary-64: [
 	"64#{"
 	[
-		| 2 digit-64 any [4 digit-64] "=="
+		2 digit-64 any [4 digit-64] "=="
 		| 3 digit-64 any [4 digit-64] "="
 		| any [4 digit-64]
 	]
