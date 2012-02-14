@@ -49,13 +49,13 @@ implicit-block: [
 block-syntax: [#"[" implicit-block #"]"]
 paren-syntax: [#"(" implicit-block #")"]
 
-non-lf: complement make bitset! [#"^/"]
+non-lf: complement charset [#"^/"]
 comment-syntax: [#";" any non-lf #"^/"]
 
-whitespace: make bitset! [#"^A" - #" " #"^(7F)" #"^(A0)"]
+whitespace: charset [#"^A" - #" " #"^(7F)" #"^(A0)"]
 
 sign: [#"+" | #"-"]
-digit: make bitset! [#"0" - #"9"]
+digit: charset [#"0" - #"9"]
 thousand-separator: [#"'"]
 termination: [
 	end
@@ -73,9 +73,9 @@ decimal-syntax: [
 	] termination
 ]
 
-hex-digit: make bitset! [#"0" - #"9" #"a" - #"f" #"A" - #"F"]
-quoted-char: complement make bitset! [#"^/" #"^"" #"^^"]
-non-open: complement make bitset! [#"("]
+hex-digit: charset [#"0" - #"9" #"a" - #"f" #"A" - #"F"]
+quoted-char: complement charset [#"^/" #"^"" #"^^"]
+non-open: complement charset [#"("]
 caret-notation: [
 	#"^^" [
 		non-open
@@ -116,7 +116,7 @@ quoted-string: [
 	#"^""
 ]
 
-braced-char: complement make bitset! [#"{" #"}" #"^^"]
+braced-char: complement charset [#"{" #"}" #"^^"]
 braced-string: [
 	#"{"
 	any [braced-char | caret-notation | braced-string]
@@ -125,7 +125,7 @@ braced-string: [
 
 binary-2: ["2#{" any [8 [any whitespace [#"0" | #"1"]]] any whitespace #"}"]
 binary-16: [opt "16" "#{" any [2 [any whitespace hex-digit]] any whitespace #"}"]
-digit-64: make bitset! [#"A" - #"Z" #"a" - #"y" #"0" - #"9" #"+" #"/"]
+digit-64: charset [#"A" - #"Z" #"a" - #"y" #"0" - #"9" #"+" #"/"]
 wsd-64: [any whitespace digit-64]
 ws=: [any whitespace #"="]
 binary-64: [
