@@ -141,4 +141,4 @@ binary-64: [
 ]
 binary-syntax: [binary-2 | binary-16 | binary-64]
 
-tuple-syntax: [digit any digit 2 9 [#"." any digit]]
+tuple-syntax: [digit any digit 2 9 [#"." any digit] termination]
