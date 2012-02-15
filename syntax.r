@@ -29,13 +29,13 @@ alternative-syntax: func [
 ]
 
 value-syntax: [
-	integer-syntax
+	block-syntax
+	| paren-syntax
+	| integer-syntax
 	| decimal-syntax
 	| char-syntax
 	| quoted-string
 	| braced-string
-	| block-syntax
-	| paren-syntax
 	| binary-syntax
 	| tuple-syntax
 ]
@@ -145,3 +145,20 @@ tuple-syntax: [
 	[some digit 2 9 [#"." any digit] | #"." some digit 1 8 [#"." any digit]]
 	termination
 ]
+
+; words containing the slash character are exceptional:
+; they can contain only slashes
+; they do not have lit-word syntax
+; they do not have set-word syntax
+; they do not have get-word syntax
+; they do not have refinement syntax
+; they do not have path syntax
+slash-word: [
+	some #"/"
+	[
+		end
+		| and [whitespace | #"(" | #")" | #"[" | #"]" | #"^"" | #"{" | #";"]
+	]
+]
+
+; words starting with #"+" or #"-" do not have refinement syntax
