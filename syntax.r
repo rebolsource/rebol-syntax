@@ -148,11 +148,11 @@ tuple-syntax: [
 
 ; words containing the slash character are exceptional:
 ; they can contain only slashes
-; they do not have lit-word syntax
-; they do not have set-word syntax
-; they do not have get-word syntax
-; they do not have refinement syntax
-; they do not have path syntax
+; they do not have a lit-word syntax
+; they do not have a set-word syntax
+; they do not have a get-word syntax
+; they do not have a refinement syntax
+; they do not have a path syntax
 slash-word: [
 	some #"/"
 	[
@@ -161,4 +161,25 @@ slash-word: [
 	]
 ]
 
-; words starting with #"+" or #"-" do not have refinement syntax
+; words containing #"<" or #"> are exceptional:
+; there are only a few words like this
+; the words don't have a set-word syntax
+; the words don't have a refinement syntax
+more-less-word: [
+	[
+		#"<"
+		| #">"
+		| "<="
+		| "<>"
+	]
+	termination
+]
+
+; words starting with #"+" or #"-" are exceptional:
+; the second character cannot be a digit
+; if the second character is #".", the third character cannot be a digit
+; they do not have a refinement syntax
+
+; words starting with #"." are exceptional:
+; the second character cannot be a digit
+; they do not have a refinement syntax
