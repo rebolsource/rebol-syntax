@@ -153,13 +153,7 @@ tuple-syntax: [
 ; they do not have a get-word syntax
 ; they do not have a refinement syntax
 ; they do not have a path syntax
-slash-word: [
-	some #"/"
-	[
-		end
-		| and [whitespace | #"(" | #")" | #"[" | #"]" | #"^"" | #"{" | #";"]
-	]
-]
+slash-word: [some #"/" termination]
 
 ; words containing #"<" or #"> are exceptional:
 ; there are only a few words like this
