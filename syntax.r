@@ -183,3 +183,7 @@ more-less-word: [
 ; words starting with #"." are exceptional:
 ; the second character cannot be a digit
 ; they do not have a refinement syntax
+
+; the :x:y get-words don't have a word-syntax
+
+; the //x refinements don't have a word-syntax
