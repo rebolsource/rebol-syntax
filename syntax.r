@@ -171,6 +171,8 @@ more-less-word: [
 		| #">"
 		| "<="
 		| "<>"
+		| ">>"
+		| "<<"
 	]
 	termination
 ]
