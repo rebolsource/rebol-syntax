@@ -81,7 +81,7 @@ comment-syntax: [#";" any non-lf #"^/"]
 
 end-load: [#"^@" to end]
 
-whitespace: charset [#"^A" - #" " #"^(7F)" #"^(A0)"]
+whitespace: charset [#"^A" - #" " #"^(7F)"]
 
 sign: [#"+" | #"-"]
 digit: charset [#"0" - #"9"]
