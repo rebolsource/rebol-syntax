@@ -217,7 +217,7 @@ word-syntax: [
 	[
 		slash-word
 		| more-less-word
-		| opt sign [#"." | not #"'"] not digit any word-char
+		| and word-char opt sign [#"." | not #"'"] not digit any word-char
 	]
 	termination 
 ]
