@@ -178,7 +178,7 @@ tuple-syntax: [
 ; they do not have a get-word syntax
 ; they do not have a refinement syntax
 ; they do not have a path syntax
-slash-word: [some #"/" termination]
+slash-word: [some #"/"]
 
 ; words containing #"<" or #"> are exceptional:
 ; there are only a few words like this
@@ -194,18 +194,29 @@ more-less-word: [
 		| ">>"
 		| "<<"
 	]
-	termination
 ]
 
-; words starting with #"+" or #"-" are exceptional:
-; the second character cannot be a digit
-; if the second character is #".", the third character cannot be a digit
-; they do not have a refinement syntax
+; the :x:y get-words don't have a word-syntax
+
+; the //x refinements don't have a word-syntax
+
+extra-word-char: union termination-char charset ":/#$%<>@\,"
+word-char: complement extra-word-char
 
 ; words starting with #"." are exceptional:
 ; the second character cannot be a digit
 ; they do not have a refinement syntax
 
-; the :x:y get-words don't have a word-syntax
-
-; the //x refinements don't have a word-syntax
+; words starting with #"+" or #"-" are exceptional:
+; the second character cannot be a digit
+; if the second character is #".", the third character cannot be a digit
+; the second character cannot be the apostrophe
+; they do not have a refinement syntax
+word-syntax: [
+	[
+		slash-word
+		| more-less-word
+		| opt sign [#"." | not #"'"] not digit any word-char
+	]
+	termination 
+]
