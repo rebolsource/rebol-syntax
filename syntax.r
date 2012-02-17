@@ -69,6 +69,7 @@ implicit-block: [
 		whitespace
 		| comment-syntax
 		| value-syntax
+		| end-load
 	]
 ]
 
@@ -78,15 +79,15 @@ paren-syntax: [#"(" implicit-block #")"]
 non-lf: complement charset [#"^/"]
 comment-syntax: [#";" any non-lf #"^/"]
 
+end-load: [#"^@" to end]
+
 whitespace: charset [#"^A" - #" " #"^(7F)" #"^(A0)"]
 
 sign: [#"+" | #"-"]
 digit: charset [#"0" - #"9"]
 thousand-separator: [#"'"]
-termination: [
-	end
-	| and [whitespace | #"(" | #")" | #"[" | #"]" | #"^"" | #"{" | #"/" | #";"]
-]
+termination-char: union whitespace charset "()[]^"{}/^@;"
+termination: [end | and termination-char]
 integer-syntax: [opt sign digit any [digit | thousand-separator] termination]
 
 decimal-separator: [#"." | #","]
