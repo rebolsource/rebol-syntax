@@ -62,13 +62,14 @@ value-syntax: [
 	| braced-string
 	| binary-syntax
 	| tuple-syntax
+	| word-syntax
 ]
 
 implicit-block: [
 	any [
 		whitespace
 		| comment-syntax
-		| value-syntax
+		| value-syntax not #"/"
 		| end-load
 	]
 ]
