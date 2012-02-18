@@ -204,20 +204,24 @@ more-less-word: [
 extra-word-char: union termination-char charset ":/#$%<>@\,"
 word-char: complement extra-word-char
 
-; words starting with #"." are exceptional:
-; the second character cannot be a digit
-; they do not have a refinement syntax
-
 ; words starting with #"+" or #"-" are exceptional:
 ; the second character cannot be a digit
 ; if the second character is #".", the third character cannot be a digit
 ; the second character cannot be the apostrophe
 ; they do not have a refinement syntax
+
+; words starting with #"." are exceptional:
+; the second character cannot be a digit
+; they do not have a refinement syntax
 word-syntax: [
 	[
 		slash-word
 		| more-less-word
-		| and word-char opt sign [#"." | not #"'"] not digit any word-char
+		| [
+			sign [#"." | not #"'"]
+			| #"."
+			| and word-char not #"'"
+		] not digit any word-char
 	]
 	termination 
 ]
