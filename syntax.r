@@ -217,11 +217,10 @@ word-syntax: [
 	[
 		slash-word
 		| more-less-word
-		| [
-			sign [#"." | not #"'"]
-			| #"."
-			| and word-char not #"'"
-		] not digit any word-char
+		| and word-char opt sign [#"." | not #"'"] not digit any word-char
 	]
 	termination 
 ]
+
+issue-char-R2: complement union charset "@" termination-char
+issue-char-R3: complement union charset "@$%:<>\" termination-char
