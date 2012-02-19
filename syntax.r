@@ -223,4 +223,4 @@ word-syntax: [
 ]
 
 issue-char-R2: complement union charset "@" termination-char
-issue-char-R3: complement union charset "@$%:<>\" termination-char
+issue-char-R3: complement union charset "@$%:<>\#" termination-char
