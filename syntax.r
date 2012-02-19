@@ -222,5 +222,5 @@ word-syntax: [
 	termination 
 ]
 
-issue-char-R2: complement union charset "@" termination-char
-issue-char-R3: complement union charset "@$%:<>\#" termination-char
+issue-char: complement union charset "@$%:<>\#" termination-char
+alternative-syntax R2 issue-char: complement union charset "@" termination-char
