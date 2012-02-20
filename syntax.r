@@ -101,6 +101,8 @@ decimal-syntax: [
 	] termination
 ]
 
+; see the decimal in path issue: http://issue.cc/r3/1904
+
 hex-digit: charset [#"0" - #"9" #"a" - #"f" #"A" - #"F"]
 quoted-char: complement charset [#"^/" #"^"" #"^^"]
 non-open: complement charset [#"("]
@@ -172,6 +174,8 @@ tuple-syntax: [
 	termination
 ]
 
+; invalid path issue: http://issue.cc/r3/1905
+
 ; words containing the slash character are exceptional:
 ; they can contain only slashes
 ; they do not have a lit-word syntax
@@ -221,6 +225,8 @@ word-syntax: [
 	]
 	termination 
 ]
+
+; word followed by a tag issue: http://issue.cc/r3/1903
 
 issue-char: complement union charset "@$%:<>\#" termination-char
 alternative-syntax R2 issue-char: complement union charset "@" termination-char
