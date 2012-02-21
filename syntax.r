@@ -102,6 +102,13 @@ decimal-syntax: [
 ]
 
 ; see the decimal in path issue: http://issue.cc/r3/1904
+alternative-syntax A111 decimal-syntax: [
+	opt sign [
+		digit any [digit | thousand-separator] [
+			e-part | decimal-separator any [digit | thousand-separator]
+		] | decimal-separator digit any [digit | thousand-separator] opt e-part
+	] termination not #"/"
+]
 
 hex-digit: charset [#"0" - #"9" #"a" - #"f" #"A" - #"F"]
 quoted-char: complement charset [#"^/" #"^"" #"^^"]
@@ -227,6 +234,17 @@ word-syntax: [
 ]
 
 ; word followed by a tag issue: http://issue.cc/r3/1903
+alternative-syntax R3 word-syntax: [
+	[
+		[
+			slash-word
+			| more-less-word
+			| sign
+		] termination
+		| opt sign [#"." | not #"'" and word-char] not digit any word-char
+		termination not [#"<" end] not "<<" not "<=" not #">"
+	]
+]
 
 issue-char: complement union charset "@$%:<>\#" termination-char
 alternative-syntax R2 issue-char: complement union charset "@" termination-char
