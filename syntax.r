@@ -242,9 +242,40 @@ alternative-syntax R3 word-syntax: [
 			| sign
 		] termination
 		| opt sign [#"." | not #"'" and word-char] not digit any word-char
-		termination not [#"<" end] not "<<" not "<=" not #">"
+		[termination | #"<" not [end | #"<" | #"=" | #"#"]]
 	]
 ]
 
 issue-char: complement union charset "@$%:<>\#" termination-char
 alternative-syntax R2 issue-char: complement union charset "@" termination-char
+
+issue-syntax: [#"#" some issue-char termination]
+alternative-syntax R2 issue-syntax: [#"#" any issue-char termination]
+
+tag-char-beg: complement union whitespace charset {=<>"^@}
+tag-char: complement charset {">^@}
+
+tag-syntax: [
+	#"<"
+	[not #"]" tag-char-beg | quoted-string]
+	any [some tag-char | quoted-string]
+	#">"
+	termination
+]
+alternative-syntax R2 tag-syntax: [
+	#"<"
+	[tag-char-beg | quoted-string] any [some tag-char | quoted-string]
+	#">"
+	termination
+]
+
+escape-uri: [#"%" 2 hex-digit]
+email-char: complement union charset {%@:} termination-char
+email-esc: [email-char | escape-uri]
+email-syntax: [
+	[
+		#":" any [email-esc | #":" ] #"@" any [email-esc | #":" ]
+		| not #"<" some email-esc #"@" any email-esc
+	]
+	termination
+]
