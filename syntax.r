@@ -242,7 +242,16 @@ alternative-syntax R3 word-syntax: [
 			| sign
 		] termination
 		| opt sign [#"." | not #"'" and word-char] not digit any word-char
-		[termination | and [#"<" not [end | #"<" | #"=" | #"#"]]]
+		[
+			termination
+			| and [
+				#"<" not termination
+				not [
+					#"#" | #"$" | #"%" | #"(" | #")" | #"," | #"<" | #"="
+					| #">" | #"\" | #":"
+				]
+			]
+		]
 	]
 ]
 
