@@ -224,17 +224,8 @@ word-char: complement extra-word-char
 ; words starting with #"." are exceptional:
 ; the second character cannot be a digit
 ; they do not have a refinement syntax
+; word followed by a tag http://issue.cc/r3/1903
 word-syntax: [
-	[
-		slash-word
-		| more-less-word
-		| and word-char opt sign [#"." | not #"'"] not digit any word-char
-	]
-	termination 
-]
-
-; word followed by a tag issue: http://issue.cc/r3/1903
-alternative-syntax R3 word-syntax: [
 	[
 		[
 			slash-word
@@ -253,6 +244,15 @@ alternative-syntax R3 word-syntax: [
 			]
 		]
 	]
+]
+
+alternative-syntax simplified word-syntax: [
+	[
+		slash-word
+		| more-less-word
+		| and word-char opt sign [#"." | not #"'"] not digit any word-char
+	]
+	termination 
 ]
 
 issue-char: complement union charset "@$%:<>\#" termination-char
