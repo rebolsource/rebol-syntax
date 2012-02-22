@@ -10,8 +10,7 @@ REBOL [
 		integer-syntax
 		decimal-syntax
 		char-syntax
-		quoted-string
-		braced-string
+		string-syntax
 		binary-syntax
 		tuple-syntax
 		word-syntax
@@ -62,8 +61,7 @@ value-syntax: [
 	| integer-syntax
 	| decimal-syntax
 	| char-syntax
-	| quoted-string
-	| braced-string
+	| string-syntax
 	| binary-syntax
 	| tuple-syntax
 	| word-syntax
@@ -166,6 +164,8 @@ braced-string: [
 	any [braced-char | caret-notation | braced-string]
 	#"}"
 ]
+
+string-syntax: [quoted-string | braced-string]
 
 binary-2: ["2#{" any [8 [any whitespace [#"0" | #"1"]]] any whitespace #"}"]
 binary-16: [opt "16" "#{" any [2 [any whitespace hex-digit]] any whitespace #"}"]
