@@ -14,6 +14,10 @@ REBOL [
 		braced-string
 		binary-syntax
 		tuple-syntax
+		word-syntax
+		issue-syntax
+		tag-syntax
+		email-syntax
 	}
 	License: {
 		Copyright (c) 2012 The rebol-syntax contributors
@@ -63,6 +67,9 @@ value-syntax: [
 	| binary-syntax
 	| tuple-syntax
 	| word-syntax
+	| issue-syntax
+	| tag-syntax
+	| email-syntax
 ]
 
 implicit-block: [
