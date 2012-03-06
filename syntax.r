@@ -342,8 +342,8 @@ time-syntax: [
 ]
 
 month-names: [
-    "January" | "Januar"  | "Janua" | "Janu" | "Jan" | 
-    "February" | "Februar" | "Februa" | "Febru" | "Febr" | "Feb" | 
+    "January" | "Januar"  | "Janua" | "Janu" | "Jan" |
+    "February" | "Februar" | "Februa" | "Febru" | "Febr" | "Feb" |
     "March" | "Marc" | "Mar" |
     "April" | "Apri" | "Apr" |
     "May" |
