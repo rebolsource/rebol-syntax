@@ -1,6 +1,6 @@
 REBOL [
 	Purpose: {
-		REBOL syntax description:
+		A formal description of the REBOL syntax.
 		
 		value-syntax ; update when adding a new syntax type
 		implicit-block
@@ -17,6 +17,9 @@ REBOL [
 		issue-syntax
 		tag-syntax
 		email-syntax
+		url-syntax
+		file-syntax
+		time-syntax
 	}
 	License: {
 		Copyright (c) 2012 The rebol-syntax contributors
@@ -68,6 +71,9 @@ value-syntax: [
 	| issue-syntax
 	| tag-syntax
 	| email-syntax
+	| url-syntax
+	| file-syntax
+	| time-syntax
 ]
 
 implicit-block: [
@@ -294,4 +300,43 @@ email-syntax: [
 		| not #"<" some email-esc #"@" any email-esc
 	]
 	termination
+]
+
+url-syntax: [
+	not [digit | #"'" | #"." digit | sign] word-char
+	any [escape-uri | not termination-char not #":" skip]
+	#":"
+	any [escape-uri | #"/" | not termination-char skip]
+]
+
+file-char: complement union charset {%:@} termination-char
+file-char/#"/": true	;** #"/" added
+file-syntax: [
+	#"%" [
+		quoted-string
+		| any [file-char | escape-uri] ;** fail on ^ char
+	] termination
+]
+alternative-syntax R2 file-syntax: [
+	#"%" [
+		quoted-string
+		| some [file-char | escape-uri | #"^^"]  ;** ^ valid char
+	] termination
+]
+
+time-syntax: [
+	[
+		and [#":" digit]		; :##  
+		| sign				; +:, -:
+		| opt sign some digit   : +-##:
+	]
+	1 2 [
+		#":" not #"." [
+			opt #"+" any digit #"." any digit not #":"	; :+##.##
+			| #"-" any #"0" #"." any digit not #":"		; :-00.##:
+			| opt #"+" some digit				; :+##:
+			| #"+"							; :+:
+			| #"-" any #"0"					; :-00:,  :-:
+		]
+	] termination
 ]
