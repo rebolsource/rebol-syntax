@@ -340,3 +340,18 @@ time-syntax: [
 		]
 	] termination
 ]
+
+month-names: [
+    "January" | "Januar"  | "Janua" | "Janu" | "Jan" | 
+    "February" | "Februar" | "Februa" | "Febru" | "Febr" | "Feb" | 
+    "March" | "Marc" | "Mar" |
+    "April" | "Apri" | "Apr" |
+    "May" |
+    "June" | "Jun" |
+    "July" | "Jul" |
+    "August" | "Augus" | "Augu" | "Aug" |
+    "September" | "Septembe" | "Septemb" | "Septem" | "Septe" | "Sept" | "Sep" |
+    "October" | "Octobe" | "Octob" | "Octo" | "Oct" |
+    "November" | "Novembe" | "Novemb" | "Novem" | "Nove" | "Nov" |
+    "December" | "Decembe" | "Decemb" | "Decem" | "Dece" | "Dec"
+]
